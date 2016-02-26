@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PokemonGame.Assets.Scripts.Character.Stats
 {
@@ -29,16 +26,22 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         {
             if (Max - Current > amount)
             {
+                Current += (Max - Current);
                 amount -= (Max - Current);
                 LevelUp();
                 RewardExp(amount);
             }
+            else
+                Current += (Max - Current);
         }
 
         private void LevelUp()
         {
             Level++;
-            OnLevelUp(this, new EventArgs());
+            RecalculateMax();
+
+            if (OnLevelUp != null)
+                OnLevelUp(this, new EventArgs());
         }
 
         private void RecalculateMax()
@@ -49,16 +52,16 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
                     SetErraticExp();
                     break;
                 case ExpGroup.Fast:
-                    Max = (4 * (Level * Level * Level)) / 5;
+                    SetFastExp();
                     break;
                 case ExpGroup.MediumFast:
-                    Max = Level * Level * Level;
+                    MediumFastExp();
                     break;
                 case ExpGroup.MediumSlow:
-                    Max = ((6 / 5) * (Level * Level * Level)) - (15 * (Level * Level) + (100 * Level)) - 140;
+                    SetMediumSlowExp();
                     break;
                 case ExpGroup.Slow:
-                    Max = (5 * (Level * Level * Level)) / 4;
+                    SetSlowExp();
                     break;
                 case ExpGroup.Fluctuating:
                     SetFluctuatingExp();
@@ -66,6 +69,26 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
                 default:
                     break;
             }
+        }
+
+        private void SetFastExp()
+        {
+            Max = (4 * (Level * Level * Level)) / 5;
+        }
+
+        private void MediumFastExp()
+        {
+            Max = Level * Level * Level;
+        }
+
+        private void SetMediumSlowExp()
+        {
+            Max = ((6 / 5) * (Level * Level * Level)) - (15 * (Level * Level) + (100 * Level)) - 140;
+        }
+
+        private void SetSlowExp()
+        {
+            Max = (5 * (Level * Level * Level)) / 4;
         }
 
         private void SetFluctuatingExp()
