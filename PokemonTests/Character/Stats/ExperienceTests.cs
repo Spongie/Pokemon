@@ -21,8 +21,6 @@ namespace PokemonTests.Character.Stats
                 Group = ExpGroup.Erratic
             };
 
-            exp.RecalculateMax();
-
             exp.RewardExp(20);
 
             Assert.AreEqual(3, exp.Level);
@@ -32,15 +30,9 @@ namespace PokemonTests.Character.Stats
         [TestCategory("Experience")]
         public void RewardXp_LevelUp2Times()
         {
-            Experience exp = new Experience()
-            {
-                Level = 2,
-                Group = ExpGroup.Erratic
-            };
+            Experience exp = new Experience(2, ExpGroup.Erratic);
 
-            exp.RecalculateMax();
-
-            exp.RewardExp(55);
+            exp.RewardExp(107);
 
             Assert.AreEqual(4, exp.Level);
         }
@@ -49,90 +41,54 @@ namespace PokemonTests.Character.Stats
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Erratic_10()
         {
-            Experience exp = new Experience()
-            {
-                Level = 10,
-                Group = ExpGroup.Erratic
-            };
+            Experience exp = new Experience(10, ExpGroup.Erratic);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(1800, exp.Max);
+            Assert.AreEqual(1800, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Erratic_55()
         {
-            Experience exp = new Experience()
-            {
-                Level = 55,
-                Group = ExpGroup.Erratic
-            };
+            Experience exp = new Experience(55, ExpGroup.Erratic);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(158056, exp.Max);
+            Assert.AreEqual(158056, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Erratic_77()
         {
-            Experience exp = new Experience()
-            {
-                Level = 77,
-                Group = ExpGroup.Erratic
-            };
+            Experience exp = new Experience(77, ExpGroup.Erratic);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(346965, exp.Max);
+            Assert.AreEqual(346965, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Erratic_99()
         {
-            Experience exp = new Experience()
-            {
-                Level = 99,
-                Group = ExpGroup.Erratic
-            };
+            Experience exp = new Experience(99, ExpGroup.Erratic);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(591882, exp.Max);
+            Assert.AreEqual(591882, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Fluctuating_10()
         {
-            Experience exp = new Experience()
-            {
-                Level = 10,
-                Group = ExpGroup.Fluctuating
-            };
+            Experience exp = new Experience(10, ExpGroup.Fluctuating);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(540, exp.Max);
+            Assert.AreEqual(540, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Fluctuating_30()
         {
-            Experience exp = new Experience()
-            {
-                Level = 30,
-                Group = ExpGroup.Fluctuating
-            };
+            Experience exp = new Experience(30, ExpGroup.Fluctuating);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(23760, exp.Max);
+            Assert.AreEqual(23760, exp.Current);
         }
 
 
@@ -140,135 +96,107 @@ namespace PokemonTests.Character.Stats
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Fluctuating_50()
         {
-            Experience exp = new Experience()
-            {
-                Level = 50,
-                Group = ExpGroup.Fluctuating
-            };
+            Experience exp = new Experience(50, ExpGroup.Fluctuating);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(142500, exp.Max);
+            Assert.AreEqual(142500, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Slow_50()
         {
-            Experience exp = new Experience()
-            {
-                Level = 50,
-                Group = ExpGroup.Slow
-            };
+            Experience exp = new Experience(50, ExpGroup.Slow);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(156250, exp.Max);
+            Assert.AreEqual(156250, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Slow_24()
         {
-            Experience exp = new Experience()
-            {
-                Level = 24,
-                Group = ExpGroup.Slow
-            };
+            Experience exp = new Experience(24, ExpGroup.Slow);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(17280, exp.Max);
+            Assert.AreEqual(17280, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_MediumSlow_50()
         {
-            Experience exp = new Experience()
-            {
-                Level = 50,
-                Group = ExpGroup.MediumSlow
-            };
+            Experience exp = new Experience(50, ExpGroup.MediumSlow);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(117360, exp.Max);
+            Assert.AreEqual(117360, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_MediumSlow_24()
         {
-            Experience exp = new Experience()
-            {
-                Level = 24,
-                Group = ExpGroup.MediumSlow
-            };
+            Experience exp = new Experience(24, ExpGroup.MediumSlow);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(10208, exp.Max);
+            Assert.AreEqual(10208, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_MediumFast_50()
         {
-            Experience exp = new Experience()
-            {
-                Level = 50,
-                Group = ExpGroup.MediumFast
-            };
+            Experience exp = new Experience(50, ExpGroup.MediumFast);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(125000, exp.Max);
+            Assert.AreEqual(125000, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_MediumFast_24()
         {
-            Experience exp = new Experience()
-            {
-                Level = 24,
-                Group = ExpGroup.MediumFast
-            };
+            Experience exp = new Experience(24, ExpGroup.MediumFast);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(13824, exp.Max);
+            Assert.AreEqual(13824, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Fast_50()
         {
-            Experience exp = new Experience()
-            {
-                Level = 50,
-                Group = ExpGroup.Fast
-            };
+            Experience exp = new Experience(50, ExpGroup.Fast);
 
-            exp.RecalculateMax();
-
-            Assert.AreEqual(100000, exp.Max);
+            Assert.AreEqual(100000, exp.Current);
         }
 
         [TestMethod]
         [TestCategory("Experience")]
         public void RecalculateMaxExperience_Fast_24()
         {
-            Experience exp = new Experience()
-            {
-                Level = 24,
-                Group = ExpGroup.Fast
-            };
+            Experience exp = new Experience(24, ExpGroup.Fast);
 
-            exp.RecalculateMax();
+            Assert.AreEqual(11059, exp.Current);
+        }
 
-            Assert.AreEqual(11059, exp.Max);
+        [TestMethod]
+        [TestCategory("Experience")]
+        public void GetCurrentExpPercentage_LowLevel()
+        {
+            Experience exp = new Experience(2, ExpGroup.Fast);
+
+            Assert.AreEqual(0, exp.GetCurrentExperiencePercentage());
+
+            exp.RewardExp(3);
+
+            Assert.AreEqual(0.5f, exp.GetCurrentExperiencePercentage());
+        }
+
+        [TestMethod]
+        [TestCategory("Experience")]
+        public void GetCurrentExpPercentage_HighLevel()
+        {
+            Experience exp = new Experience(50, ExpGroup.Fast);
+
+            Assert.AreEqual(0, exp.GetCurrentExperiencePercentage());
+
+            exp.RewardExp(3060);
+
+            Assert.AreEqual(0.5f, exp.GetCurrentExperiencePercentage());
         }
     }
 }

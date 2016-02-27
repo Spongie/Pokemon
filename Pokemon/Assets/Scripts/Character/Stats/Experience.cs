@@ -22,9 +22,22 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         public int Level;
         public ExpGroup Group;
 
+        public Experience()
+        {
+            Group = ExpGroup.Erratic;
+        }
+
+        public Experience(int level, ExpGroup group)
+        {
+            Level = level;
+            Group = group;
+            Current = (int)RecalculateMax();
+            Max = (int)new Experience() { Level = level + 1, Group = group }.RecalculateMax();
+        }
+
         public void RewardExp(int amount)
         {
-            if (Max - Current < amount)
+            if (Max - Current <= amount)
             {
                 int extraXp = amount - (Max - Current);
                 Current += (Max - Current);
@@ -38,13 +51,13 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         private void LevelUp()
         {
             Level++;
-            RecalculateMax();
+            Max = (int)new Experience(Level + 1, Group).RecalculateMax();
 
             if (OnLevelUp != null)
                 OnLevelUp(this, new EventArgs());
         }
 
-        public void RecalculateMax()
+        private float RecalculateMax()
         {
             switch (Group)
             {
@@ -69,6 +82,8 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
                 default:
                     break;
             }
+
+            return Max;
         }
 
         private void SetFastExp()
@@ -111,6 +126,17 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
                 Max = ((Level * Level * Level) * (((1911 - (Level * 10)) / 3))) / 500;
             else
                 Max = ((Level * Level * Level) * (160 - Level)) / 100;
+        }
+
+        public float GetCurrentExperiencePercentage()
+        {
+            float min = new Experience(Level, Group).RecalculateMax();
+            float max = new Experience(Level + 1, Group).RecalculateMax();
+
+            float required = max - min;
+            float current = min + Current;
+
+            return current / required;
         }
     }
 }
