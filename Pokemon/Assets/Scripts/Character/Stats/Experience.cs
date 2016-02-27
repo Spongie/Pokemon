@@ -17,22 +17,22 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
     {
         public event EventHandler OnLevelUp;
 
-        public float Current;
-        public float Max;
+        public int Current;
+        public int Max;
         public int Level;
         public ExpGroup Group;
 
-        public void RewardExp(float amount)
+        public void RewardExp(int amount)
         {
-            if (Max - Current > amount)
+            if (Max - Current < amount)
             {
+                int extraXp = amount - (Max - Current);
                 Current += (Max - Current);
-                amount -= (Max - Current);
                 LevelUp();
-                RewardExp(amount);
+                RewardExp(extraXp);
             }
             else
-                Current += (Max - Current);
+                Current += amount;
         }
 
         private void LevelUp()
@@ -44,7 +44,7 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
                 OnLevelUp(this, new EventArgs());
         }
 
-        private void RecalculateMax()
+        public void RecalculateMax()
         {
             switch (Group)
             {
@@ -83,7 +83,7 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
 
         private void SetMediumSlowExp()
         {
-            Max = ((6 / 5) * (Level * Level * Level)) - (15 * (Level * Level) + (100 * Level)) - 140;
+            Max = (int)(((6 / 5f) * (Level * Level * Level)) - (15 * (Level * Level)) + (100 * Level) - 140);
         }
 
         private void SetSlowExp()
@@ -94,11 +94,11 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         private void SetFluctuatingExp()
         {
             if (Level <= 15)
-                Max = (Level * Level * Level) * ((((Level + 1) / 3) + 24) / 50);
+                Max = (int)((Level * Level * Level) * ((((Level + 1) / 3) + 24) / 50f));
             else if (Level <= 36)
-                Max = (Level * Level * Level) * ((((Level + 14)) + 14) / 50);
+                Max = (int)((Level * Level * Level) * ((Level + 14) / 50f));
             else
-                Max = (Level * Level * Level) * ((((Level / 2)) + 32) / 50);
+                Max = (int)((Level * Level * Level) * ((((Level / 2)) + 32) / 50f));
         }
 
         private void SetErraticExp()
@@ -108,7 +108,7 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
             else if (Level <= 68)
                 Max = ((Level * Level * Level) * (150 - Level)) / 100;
             else if (Level <= 98)
-                Max = ((Level * Level * Level) * ((1911 - (Level * 10) / 3))) / 500;
+                Max = ((Level * Level * Level) * (((1911 - (Level * 10)) / 3))) / 500;
             else
                 Max = ((Level * Level * Level) * (160 - Level)) / 100;
         }
