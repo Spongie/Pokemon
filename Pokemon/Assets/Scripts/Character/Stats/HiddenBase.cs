@@ -6,21 +6,21 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
     public class HiddenBase
     {
         [IntLimiter(0, 31)]
-        public float Health;
+        public int Health;
 
         [IntLimiter(0, 31)]
-        public float Attack;
+        public int Attack;
 
         [IntLimiter(0, 31)]
-        public float Defense;
+        public int Defense;
 
         [IntLimiter(0, 31)]
-        public float SpAttack;
+        public int SpAttack;
 
         [IntLimiter(0, 31)]
-        public float SpDefense;
+        public int SpDefense;
 
         [IntLimiter(0, 31)]
-        public float Speed;
+        public int Speed;
     }
 }
