@@ -69,16 +69,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Battle\BattleCalculations.cs" />
+    <Compile Include="Assets\Scripts\Battle\PokemonBattle.cs" />
+    <Compile Include="Assets\Scripts\Character\Party.cs" />
     <Compile Include="Assets\Scripts\Character\Player.cs" />
     <Compile Include="Assets\Scripts\Character\Pokemon.cs" />
+    <Compile Include="Assets\Scripts\Character\PokemonBehaviour.cs" />
     <Compile Include="Assets\Scripts\Character\PokemonInfo.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\BaseStats.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\Experience.cs" />
-    <Compile Include="Assets\Scripts\Character\Stats\HiddenBase.cs" />
+    <Compile Include="Assets\Scripts\Character\Stats\IVStats.cs" />
+    <Compile Include="Assets\Scripts\Character\Stats\PokemonType.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\Range.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\Natures.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\PokemonStats.cs" />
-    <Compile Include="Assets\Scripts\Character\Stats\TrainedStats.cs" />
+    <Compile Include="Assets\Scripts\Character\Stats\EVStats.cs" />
     <Compile Include="Assets\Scripts\Tiles\BasicTile.cs" />
     <Compile Include="Assets\Scripts\Tiles\ITile.cs" />
     <Compile Include="Assets\Scripts\Utility\BaseEntity.cs" />

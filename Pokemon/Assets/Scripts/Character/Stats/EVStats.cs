@@ -3,7 +3,7 @@
 namespace PokemonGame.Assets.Scripts.Character.Stats
 {
     [Serializable]
-    public class TrainedStats
+    public class EVStats
     {
         public int Health;
         public int Attack;

@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Character
 {
-    public class PokemonInfo : MonoBehaviour
+    [Serializable]
+    public class PokemonInfo
     {
         public int ID;
         public string Name;

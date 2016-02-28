@@ -1,25 +1,33 @@
 ﻿using PokemonGame.Assets.Scripts.Character.Stats;
 using PokemonGame.Assets.Scripts.Utility;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Character
 {
-    [RequireComponent(typeof(PokemonStats))]
-    [RequireComponent(typeof(PokemonInfo))]
-    public class Pokemon : MonoBehaviour
+    [Serializable]
+    public class Pokemon
     {
         public PokemonInfo Info;
         public PokemonStats Stats;
+        public List<PokemonType> Types;
 
-        void Start()
+        public Pokemon()
         {
-            Info = GetComponent<PokemonInfo>();
-            Stats = GetComponent<PokemonStats>();
+            Types = new List<PokemonType>();
+            Info = new PokemonInfo();
+            Stats = new PokemonStats();
         }
 
         public void FullyRestore()
         {
             Stats.CurrentHealth = (int)Stats.GetRealStats().Health;
+        }
+
+        public bool IsAlive()
+        {
+            return Stats.CurrentHealth > 0;
         }
     }
 }

@@ -11,10 +11,9 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         public int SpAttack;
         public int SpDefense;
         public int Speed;
-
         public Natures Nature;
 
-        public BaseStats GetRealStats(HiddenBase hiddenStats, TrainedStats trainedStats, int level)
+        public BaseStats GetRealStats(IVStats hiddenStats, EVStats trainedStats, int level)
         {
             var stats = new BaseStats();
 

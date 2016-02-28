@@ -11,8 +11,8 @@ namespace PokemonTests.Character.Stats
         public void HealthCalculation_0EV()
         {
             BaseStats stats = GetPokemon();
-            var iv = new HiddenBase();
-            var ev = new TrainedStats();
+            var iv = new IVStats();
+            var ev = new EVStats();
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
@@ -24,8 +24,8 @@ namespace PokemonTests.Character.Stats
         public void HealthCalculation_FullEv()
         {
             BaseStats stats = GetPokemon();
-            var iv = new HiddenBase();
-            var ev = new TrainedStats() { Health = 255 };
+            var iv = new IVStats();
+            var ev = new EVStats() { Health = 255 };
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
@@ -37,8 +37,8 @@ namespace PokemonTests.Character.Stats
         public void AttackCalculation_FullEv()
         {
             BaseStats stats = GetPokemon();
-            var iv = new HiddenBase();
-            var ev = new TrainedStats() { Attack = 255 };
+            var iv = new IVStats();
+            var ev = new EVStats() { Attack = 255 };
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
@@ -52,8 +52,8 @@ namespace PokemonTests.Character.Stats
             BaseStats stats = GetPokemon();
             stats.Nature = Natures.Adamant;
 
-            var iv = new HiddenBase();
-            var ev = new TrainedStats();
+            var iv = new IVStats();
+            var ev = new EVStats();
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
@@ -65,8 +65,8 @@ namespace PokemonTests.Character.Stats
         public void AttackCalculation_PositiveNature()
         {
             BaseStats stats = GetPokemon();
-            var iv = new HiddenBase();
-            var ev = new TrainedStats();
+            var iv = new IVStats();
+            var ev = new EVStats();
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
@@ -80,8 +80,8 @@ namespace PokemonTests.Character.Stats
             BaseStats stats = GetPokemon();
             stats.Nature = Natures.Bold;
 
-            var iv = new HiddenBase();
-            var ev = new TrainedStats();
+            var iv = new IVStats();
+            var ev = new EVStats();
 
             var realStats = stats.GetRealStats(iv, ev, 50);
 
