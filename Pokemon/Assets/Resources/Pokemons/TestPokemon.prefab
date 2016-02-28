@@ -8,12 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 480598}
-  - 114: {fileID: 11481982}
-  - 114: {fileID: 11447966}
-  - 114: {fileID: 11466994}
+  - 114: {fileID: 11494724}
   m_Layer: 0
   m_Name: TestPokemon
-  m_TagString: Untagged
+  m_TagString: Pokemon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11447966
+--- !u!114 &11494724
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,63 +36,94 @@ MonoBehaviour:
   m_GameObject: {fileID: 145308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ca868baae972545b0aadb0ebf5375a, type: 3}
+  m_Script: {fileID: 11500000, guid: ecbe69578c8ce3d46a0417db77bf6426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
-  Name: Test
---- !u!114 &11466994
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7fd2a7669ffc7b4f90e59a28e17b9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Info: {fileID: 0}
-  Stats: {fileID: 0}
---- !u!114 &11481982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c3e82a3808b80489ae63e1739247f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hiddenStats:
-    Health: 0
-    Attack: 0
-    Defense: 0
-    SpAttack: 0
-    SpDefense: 0
-    Speed: 0
-  trainedStats:
-    Health: 0
-    Attack: 0
-    Defense: 0
-    SpAttack: 0
-    SpDefense: 0
-    Speed: 0
-  baseStats:
-    Health: 100
-    Attack: 40
-    Defense: 200
-    SpAttack: 100
-    SpDefense: 100
-    Speed: 122
+  PokemonEntity:
+    Info:
+      ID: 0
+      Name: Test
+    Stats:
+      IVs:
+        Health: 0
+        Attack: 0
+        Defense: 0
+        SpAttack: 0
+        SpDefense: 0
+        Speed: 0
+      EVs:
+        Health: 0
+        Attack: 0
+        Defense: 0
+        SpAttack: 0
+        SpDefense: 0
+        Speed: 0
+      baseStats:
+        Health: 100
+        Attack: 100
+        Defense: 100
+        SpAttack: 100
+        SpDefense: 100
+        Speed: 100
+        Nature: 0
+      Exp:
+        Current: 0
+        Max: 0
+        Level: 0
+        Group: 0
+      CurrentHealth: 0
+    Types: 0b0000000d000000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Types.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Types.Array.data[0]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Types.Array.data[1]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Pokemon
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Info.Name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.Health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.Attack
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.Defense
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.SpAttack
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.SpDefense
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: PokemonEntity.Stats.baseStats.Speed
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 145308}

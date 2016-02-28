@@ -22,8 +22,11 @@ namespace PokemonGame.Assets.Scripts.Utility
                 GameObject spawned = Instantiate(pokemon);
                 spawned.transform.SetParent(transform);
                 spawned.transform.position = Vector3.zero;
+                PokemonInfo info = spawned.GetComponent<PokemonBehaviour>().PokemonEntity.Info;
 
-                Pokemons.Add(spawned.GetComponent<PokemonInfo>().ID, spawned);
+                spawned.name = string.Format("{0} - {1}", info.ID, info.Name);
+
+                Pokemons.Add(info.ID, spawned);
             }
 
             PokemonLogger.Log(string.Format("Loaded {0} pokemons to cache", Pokemons.Count));
