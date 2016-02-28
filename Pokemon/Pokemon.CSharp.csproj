@@ -69,7 +69,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Battle\Attack.cs" />
+    <Compile Include="Assets\Scripts\Battle\BattleAction.cs" />
+    <Compile Include="Assets\Scripts\Battle\BattleAI.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleCalculations.cs" />
+    <Compile Include="Assets\Scripts\Battle\BattleState.cs" />
     <Compile Include="Assets\Scripts\Battle\PokemonBattle.cs" />
     <Compile Include="Assets\Scripts\Character\Party.cs" />
     <Compile Include="Assets\Scripts\Character\Player.cs" />
