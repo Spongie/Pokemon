@@ -2,6 +2,7 @@
 {
     public enum BattleState
     {
-        SelectingAction
+        SelectingAction,
+        ResolvingActions
     }
 }

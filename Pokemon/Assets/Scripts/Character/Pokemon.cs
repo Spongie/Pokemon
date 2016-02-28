@@ -1,4 +1,5 @@
 ﻿using PokemonGame.Assets.Scripts.Battle;
+using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character.Stats;
 using PokemonGame.Assets.Scripts.Utility;
 using System;

@@ -69,7 +69,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Battle\Attack.cs" />
+    <Compile Include="Assets\Scripts\Battle\Attacks\Attack.cs" />
+    <Compile Include="Assets\Scripts\Battle\Attacks\BasicAttack.cs" />
+    <Compile Include="Assets\Scripts\Battle\Attacks\StatusApplyingAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleAction.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleAI.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleCalculations.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Assets\Scripts\Character\Stats\EVStats.cs" />
     <Compile Include="Assets\Scripts\Tiles\BasicTile.cs" />
     <Compile Include="Assets\Scripts\Tiles\ITile.cs" />
+    <Compile Include="Assets\Scripts\Utility\AttackManager.cs" />
     <Compile Include="Assets\Scripts\Utility\BaseEntity.cs" />
     <Compile Include="Assets\Scripts\Utility\Logger.cs" />
     <Compile Include="Assets\Scripts\Utility\PokemonManager.cs" />

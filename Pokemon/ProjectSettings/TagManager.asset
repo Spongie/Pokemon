@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PokemonCache
   - Pokemon
+  - Attack
   layers:
   - Default
   - TransparentFX
