@@ -21,23 +21,23 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
 
         public void GenereateHiddenStats()
         {
-            IntLimiter minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Health"));
-            hiddenStats.Health = Random.Range(minMax.min, minMax.max);
+            Range statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Health"));
+            hiddenStats.Health = Random.Range(statRange.Min, statRange.Max);
 
-            minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Attack"));
-            hiddenStats.Attack = Random.Range(minMax.min, minMax.max);
+            statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Attack"));
+            hiddenStats.Attack = Random.Range(statRange.Min, statRange.Max);
 
-            minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("SpAttack"));
-            hiddenStats.SpAttack = Random.Range(minMax.min, minMax.max);
+            statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("SpAttack"));
+            hiddenStats.SpAttack = Random.Range(statRange.Min, statRange.Max);
 
-            minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Defense"));
-            hiddenStats.Defense = Random.Range(minMax.min, minMax.max);
+            statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Defense"));
+            hiddenStats.Defense = Random.Range(statRange.Min, statRange.Max);
 
-            minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("SpDefense"));
-            hiddenStats.SpDefense = Random.Range(minMax.min, minMax.max);
+            statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("SpDefense"));
+            hiddenStats.SpDefense = Random.Range(statRange.Min, statRange.Max);
 
-            minMax = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Speed"));
-            hiddenStats.Speed = Random.Range(minMax.min, minMax.max);
+            statRange = GetMinMaxOfStat(hiddenStats.GetType().GetProperty("Speed"));
+            hiddenStats.Speed = Random.Range(statRange.Min, statRange.Max);
 
             baseStats.Nature = (Natures)Random.Range(0, System.Enum.GetValues(typeof(Natures)).Cast<int>().Max());
         }
@@ -47,9 +47,9 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
             return baseStats.GetRealStats(hiddenStats, trainedStats, Exp.Level);
         }
 
-        private IntLimiter GetMinMaxOfStat(PropertyInfo property)
+        private Range GetMinMaxOfStat(PropertyInfo property)
         {
-            return (IntLimiter)property.GetCustomAttributes(typeof(IntLimiter), false)[0];
+            return (Range)property.GetCustomAttributes(typeof(Range), false)[0];
         }        
     }
 }

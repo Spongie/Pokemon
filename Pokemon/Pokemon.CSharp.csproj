@@ -75,7 +75,7 @@
     <Compile Include="Assets\Scripts\Character\Stats\BaseStats.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\Experience.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\HiddenBase.cs" />
-    <Compile Include="Assets\Scripts\Character\Stats\IntLimiter.cs" />
+    <Compile Include="Assets\Scripts\Character\Stats\Range.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\Natures.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\PokemonStats.cs" />
     <Compile Include="Assets\Scripts\Character\Stats\TrainedStats.cs" />

@@ -5,22 +5,22 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
     [Serializable]
     public class HiddenBase
     {
-        [IntLimiter(0, 31)]
-        public int Health;
+        [Range(0, 31)]
+        public int Health { get; set; }
 
-        [IntLimiter(0, 31)]
-        public int Attack;
+        [Range(0, 31)]
+        public int Attack { get; set; }
 
-        [IntLimiter(0, 31)]
-        public int Defense;
+        [Range(0, 31)]
+        public int Defense { get; set; }
 
-        [IntLimiter(0, 31)]
-        public int SpAttack;
+        [Range(0, 31)]
+        public int SpAttack { get; set; }
 
-        [IntLimiter(0, 31)]
-        public int SpDefense;
+        [Range(0, 31)]
+        public int SpDefense { get; set; }
 
-        [IntLimiter(0, 31)]
-        public int Speed;
+        [Range(0, 31)]
+        public int Speed { get; set; }
     }
 }

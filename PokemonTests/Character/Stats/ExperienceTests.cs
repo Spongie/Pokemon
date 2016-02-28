@@ -181,9 +181,9 @@ namespace PokemonTests.Character.Stats
 
             Assert.AreEqual(0, exp.GetCurrentExperiencePercentage());
 
-            exp.RewardExp(3);
+            exp.RewardExp(6);
 
-            Assert.AreEqual(0.5f, exp.GetCurrentExperiencePercentage());
+            Assert.AreEqual(0.4f, exp.GetCurrentExperiencePercentage());
         }
 
         [TestMethod]

@@ -31,8 +31,8 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         {
             Level = level;
             Group = group;
-            Current = (int)RecalculateMax();
-            Max = (int)new Experience() { Level = level + 1, Group = group }.RecalculateMax();
+            Current = (int)RecalculateExp();
+            Max = (int)new Experience() { Level = level + 1, Group = group }.RecalculateExp();
         }
 
         public void RewardExp(int amount)
@@ -51,13 +51,13 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         private void LevelUp()
         {
             Level++;
-            Max = (int)new Experience(Level + 1, Group).RecalculateMax();
+            Max = (int)new Experience(Level + 1, Group).RecalculateExp();
 
             if (OnLevelUp != null)
                 OnLevelUp(this, new EventArgs());
         }
 
-        private float RecalculateMax()
+        private float RecalculateExp()
         {
             switch (Group)
             {
@@ -130,11 +130,11 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
 
         public float GetCurrentExperiencePercentage()
         {
-            float min = new Experience(Level, Group).RecalculateMax();
-            float max = new Experience(Level + 1, Group).RecalculateMax();
+            float min = new Experience(Level, Group).RecalculateExp();
+            float max = new Experience(Level + 1, Group).RecalculateExp();
 
             float required = max - min;
-            float current = min + Current;
+            float current = Current - min;
 
             return current / required;
         }
