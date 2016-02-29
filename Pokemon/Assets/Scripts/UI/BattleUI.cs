@@ -22,8 +22,8 @@ namespace PokemonGame.Assets.Scripts.UI
 
         void Update()
         {
-            playerActiveText.text = string.Format("Player - {0}/{1}", battle.PlayerActivePokemon.Stats.CurrentHealth, battle.PlayerActivePokemon.Stats.GetRealStats().Health);
-            enemyActiveText.text =  string.Format("Enemy  - {0}/{1}", battle.EnemyActivePokemon.Stats.CurrentHealth, battle.EnemyActivePokemon.Stats.GetRealStats().Health);
+            playerActiveText.text = string.Format("Player - {0}/{1}", battle.PlayerActivePokemon.Stats.CurrentHealth, battle.PlayerActivePokemon.GetStats().Health);
+            enemyActiveText.text =  string.Format("Enemy  - {0}/{1}", battle.EnemyActivePokemon.Stats.CurrentHealth, battle.EnemyActivePokemon.GetStats().Health);
         }
     }
 }

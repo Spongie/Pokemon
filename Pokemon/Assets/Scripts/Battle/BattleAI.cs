@@ -11,5 +11,10 @@ namespace PokemonGame.Assets.Scripts.Battle
         {
             return BattleActionType.Attack1;
         }
+
+        public BattleActionType GetSwapWhenDeadPokemon(PokemonBattle battle)
+        {
+            return BattleActionType.Swap1;
+        }
     }
 }

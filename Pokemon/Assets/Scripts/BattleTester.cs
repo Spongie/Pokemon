@@ -23,12 +23,12 @@ namespace PokemonGame.Assets.Scripts
                 Party playerParty = new Party();
                 playerParty.Pokemons.Add(PokemonManager.Pokemons.First().Value.GetComponent<PokemonBehaviour>().PokemonEntity);
                 playerParty.Pokemons[0].Stats.Exp.Level = 50;
-                playerParty.Pokemons[0].Stats.CurrentHealth = playerParty.Pokemons[0].Stats.GetRealStats().Health;
+                playerParty.Pokemons[0].Stats.CurrentHealth = playerParty.Pokemons[0].GetStats().Health;
 
                 Party enemyParty = new Party();
                 enemyParty.Pokemons.Add(PokemonManager.Pokemons[1].GetComponent<PokemonBehaviour>().PokemonEntity);
                 enemyParty.Pokemons[0].Stats.Exp.Level = 50;
-                enemyParty.Pokemons[0].Stats.CurrentHealth = enemyParty.Pokemons[0].Stats.GetRealStats().Health;
+                enemyParty.Pokemons[0].Stats.CurrentHealth = enemyParty.Pokemons[0].GetStats().Health;
 
                 battle.player = playerParty;
                 battle.enemy = enemyParty;

@@ -4,6 +4,8 @@
     {
         SelectingAction,
         ResolvingActions,
-        EndCombat
+        EndCombat,
+        PostCombat,
+        PlayerSelectSwap
     }
 }

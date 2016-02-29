@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character.Stats;
 
 namespace PokemonTests.Character.Stats
@@ -14,7 +15,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats();
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(105, realStats.Health);
         }
@@ -27,7 +28,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats() { Health = 255 };
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(136, realStats.Health);
         }
@@ -40,7 +41,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats() { Attack = 255 };
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(85, realStats.Attack);
         }
@@ -55,7 +56,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats();
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(59, realStats.Attack);
         }
@@ -68,7 +69,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats();
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(54, realStats.Attack);
         }
@@ -83,7 +84,7 @@ namespace PokemonTests.Character.Stats
             var iv = new IVStats();
             var ev = new EVStats();
 
-            var realStats = stats.GetRealStats(iv, ev, 50);
+            var realStats = stats.GetRealStats(iv, ev, 50, StatusType.None);
 
             Assert.AreEqual(48, realStats.Attack);
         }

@@ -15,6 +15,18 @@ namespace PokemonGame.Assets.Scripts.Battle
             return 30;
         }
 
+        public static int CalculateStatusDamage(Pokemon pokemon)
+        {
+            if (pokemon.CurrentStatus == StatusType.Burn || pokemon.CurrentStatus == StatusType.Poison)
+                return pokemon.GetStats().Health / 16;
+            else if (pokemon.CurrentStatus == StatusType.BadlyPoison)
+            {
+                return (pokemon.GetStats().Health / 16) * pokemon.TurnsWithCurrentStatus;
+            }
+
+            return 0;
+        }
+
         public static float GetEffectivnessModifer(PokemonType attackType, List<PokemonType> defenderTypes)
         {
             switch (attackType)

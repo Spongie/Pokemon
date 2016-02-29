@@ -22,6 +22,9 @@ namespace PokemonGame.Assets.Scripts.Battle
         private bool routine_running = false;
         private BattleAI ai;
 
+        private bool playerPokemonDied;
+        private bool enemyPokemonDied;
+
         void Awake()
         {
             ai = new BattleAI();
@@ -33,28 +36,35 @@ namespace PokemonGame.Assets.Scripts.Battle
 
         public void SelectAction(BattleActionType action)
         {
-            if (State == BattleState.SelectingAction)
+            var aiAction = ai.GetBattleAction(this);
+
+            bool playerSwap = !WasAttackSelected(action);
+            bool aiSwap = !WasAttackSelected(aiAction);
+
+            if (State == BattleState.PlayerSelectSwap)
             {
-                var aiAction = ai.GetBattleAction(this);
-
-                bool playerSwap = !WasAttackSelected(action);
-                bool aiSwap = !WasAttackSelected(aiAction);
-
-                if (playerSwap)
-                {
-                    PlayerSwap(action, aiAction, aiSwap);
-                }
-                else if (aiSwap)
-                {
-                    EnemySwap(action, aiAction, playerSwap);
-                }
-                else
-                {
-                    HandleBothAttacks(action, aiAction);
-                }
-
-                State = BattleState.ResolvingActions;
+                battleStack.Push(BattleAction.CreateAction("Swap", player, GetSwapIndex(action)));
+                State = BattleState.ResolvingEndOfCombat;
+                return;
             }
+
+            playerPokemonDied = false;
+            enemyPokemonDied = false;
+
+            if (playerSwap)
+            {
+                PlayerSwap(action, aiAction, aiSwap);
+            }
+            else if (aiSwap)
+            {
+                EnemySwap(action, aiAction, playerSwap);
+            }
+            else
+            {
+                HandleBothAttacks(action, aiAction);
+            }
+
+            State = BattleState.ResolvingActions;
         }
 
         private void HandleBothAttacks(BattleActionType action, BattleActionType aiAction)
@@ -125,16 +135,72 @@ namespace PokemonGame.Assets.Scripts.Battle
                     StartCoroutine(action.MethodName, action.Parmeter);
                 }
             }
+            else if (State == BattleState.PostCombat && !routine_running)
+            {
+                HandleEnemyStatusDamage();
+                HandlePlayerStatusDamage();
+
+                State = BattleState.EndCombat;
+            }
             else if (State == BattleState.EndCombat && !routine_running)
             {
-                if (!battleStack.Any())
+                if (battleStack.Any())
                 {
-                    State = BattleState.SelectingAction;
+                    BattleAction action = battleStack.Pop();
+                    routine_running = true;
+                    StartCoroutine(action.MethodName, action.Parmeter);
                 }
                 else
                 {
+                    if (!PlayerActivePokemon.IsAlive())
+                    {
+                        State = BattleState.PlayerSelectSwap;
+                        playerPokemonDied = true;
+                    }
+                    if (!EnemyActivePokemon.IsAlive())
+                    {
+                        enemyPokemonDied = true;
+                        var aiAction = ai.GetSwapWhenDeadPokemon(this);
+                        battleStack.Push(BattleAction.CreateAction("Swap", enemy, GetSwapIndex(aiAction)));
+                    }
 
+                    if (State != BattleState.PlayerSelectSwap)
+                        State = BattleState.ResolvingEndOfCombat;
                 }
+            }
+            else if (State == BattleState.ResolvingEndOfCombat)
+            {
+                
+            }
+        }
+
+        private void HandleEnemyStatusDamage()
+        {
+            if (!EnemyActivePokemon.IsAlive())
+                return;
+
+            if (EnemyActivePokemon.CurrentStatus == StatusType.Poison || EnemyActivePokemon.CurrentStatus == StatusType.BadlyPoison)
+            {
+                battleStack.Push(BattleAction.CreateAction("DealDamage", EnemyActivePokemon, BattleCalculations.CalculateStatusDamage(EnemyActivePokemon), null, StatusType.Poison));
+            }
+            if (EnemyActivePokemon.CurrentStatus == StatusType.Burn)
+            {
+                battleStack.Push(BattleAction.CreateAction("DealDamage", EnemyActivePokemon, BattleCalculations.CalculateStatusDamage(EnemyActivePokemon), null, StatusType.Burn));
+            }
+        }
+
+        private void HandlePlayerStatusDamage()
+        {
+            if (!PlayerActivePokemon.IsAlive())
+                return;
+
+            if (PlayerActivePokemon.CurrentStatus == StatusType.Poison || PlayerActivePokemon.CurrentStatus == StatusType.BadlyPoison)
+            {
+                battleStack.Push(BattleAction.CreateAction("DealDamage", PlayerActivePokemon, BattleCalculations.CalculateStatusDamage(PlayerActivePokemon), null, StatusType.Poison));
+            }
+            if (PlayerActivePokemon.CurrentStatus == StatusType.Burn)
+            {
+                battleStack.Push(BattleAction.CreateAction("DealDamage", PlayerActivePokemon, BattleCalculations.CalculateStatusDamage(PlayerActivePokemon), null, StatusType.Burn));
             }
         }
 
@@ -188,7 +254,11 @@ namespace PokemonGame.Assets.Scripts.Battle
         {
             Pokemon target = (Pokemon)param[0];
             int damage = (int)param[1];
-            Attack attack = (Attack)param[2];        
+            Attack attack = (Attack)param[2];
+            StatusType damageFromStatus = StatusType.None;
+
+            if (param.Length == 4)
+                damageFromStatus = (StatusType)param[3];    
 
             float msPerDamage = GetDamageTime(damage) / damage;
 
@@ -199,18 +269,17 @@ namespace PokemonGame.Assets.Scripts.Battle
                 yield return new WaitForSeconds(msPerDamage / 1000);
             }
 
-            if (!target.IsAlive())
+            if (damageFromStatus != StatusType.None)
             {
-                battleStack.Clear();
-                if (target == EnemyActivePokemon)
+                if (!target.IsAlive())
                 {
-                    battleStack.Push(BattleAction.CreateAction("Swap", enemy, enemy.GetFirstAlivePokemon()));
-                    //TODO: Reward EXP for playerPokemon?
+                    battleStack.Clear();
+                    //Reward EXP!
                 }
-            }
-            else
-            {
-                attack.ApplyEffect(target);
+                else
+                {
+                    attack.ApplyEffect(target);
+                }
             }
 
             routine_running = false;
