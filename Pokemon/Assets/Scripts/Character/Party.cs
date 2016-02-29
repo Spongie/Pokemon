@@ -16,7 +16,13 @@ namespace PokemonGame.Assets.Scripts.Character
 
         public Pokemon GetFirstAlivePokemon()
         {
-            return Pokemons.First(pokemon => pokemon.IsAlive());
+            foreach (Pokemon pokemon in Pokemons)
+            {
+                if (pokemon.IsAlive())
+                    return pokemon;
+            }
+
+            return null;
         }
 
         public bool IsAllPokemonDead()

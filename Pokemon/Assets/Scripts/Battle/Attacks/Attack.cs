@@ -21,7 +21,8 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         BadlyPoison,
         Freeze,
         Confuse,
-        Paralyze
+        Paralyze,
+        None
     }
 
     public abstract class Attack : MonoBehaviour

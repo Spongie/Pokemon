@@ -8,7 +8,7 @@ namespace PokemonGame.Assets.Scripts.Utility
 {
     public class AttackManager : MonoBehaviour
     {
-        private static List<GameObject> Attacks;
+        public static List<GameObject> Attacks;
 
         public void Start()
         {

@@ -15,6 +15,8 @@ namespace PokemonGame.Assets.Scripts.Character
         public PokemonStats Stats;
         public List<PokemonType> Types;
         public Attack[] Attacks;
+        public StatusType CurrentStatus;
+        public int TurnsWithCurrentStatus;
 
         public Pokemon()
         {
@@ -22,16 +24,33 @@ namespace PokemonGame.Assets.Scripts.Character
             Types = new List<PokemonType>();
             Info = new PokemonInfo();
             Stats = new PokemonStats();
+            CurrentStatus = StatusType.None;
         }
 
         public void FullyRestore()
         {
-            Stats.CurrentHealth = (int)Stats.GetRealStats().Health;
+            Stats.CurrentHealth = Stats.GetRealStats(CurrentStatus).Health;
         }
 
         public bool IsAlive()
         {
             return Stats.CurrentHealth > 0;
+        }
+
+        public bool IsParalyzed()
+        {
+            return UnityEngine.Random.Range(0, 100) <= 25;
+        }
+
+        public BaseStats GetStats()
+        {
+            return Stats.GetRealStats(CurrentStatus);
+        }
+
+        public void ApplyStatus(StatusType status)
+        {
+            CurrentStatus = status;
+            TurnsWithCurrentStatus = 0;
         }
     }
 }

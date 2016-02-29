@@ -9,7 +9,7 @@ namespace PokemonGame.Assets.Scripts.Utility
 {
     public class PokemonManager : MonoBehaviour
     {
-        private static Dictionary<int, GameObject> Pokemons;
+        public static Dictionary<int, GameObject> Pokemons;
         
         public void Start()
         {

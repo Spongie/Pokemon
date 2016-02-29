@@ -39,7 +39,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Erratic_10()
+        public void RecalculateMinExperience_Erratic_10()
         {
             Experience exp = new Experience(10, ExpGroup.Erratic);
 
@@ -48,7 +48,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Erratic_55()
+        public void RecalculateMinExperience_Erratic_55()
         {
             Experience exp = new Experience(55, ExpGroup.Erratic);
 
@@ -57,7 +57,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Erratic_77()
+        public void RecalculateMinExperience_Erratic_77()
         {
             Experience exp = new Experience(77, ExpGroup.Erratic);
 
@@ -66,7 +66,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Erratic_99()
+        public void RecalculateMinExperience_Erratic_99()
         {
             Experience exp = new Experience(99, ExpGroup.Erratic);
 
@@ -75,7 +75,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Fluctuating_10()
+        public void RecalculateMinExperience_Fluctuating_10()
         {
             Experience exp = new Experience(10, ExpGroup.Fluctuating);
 
@@ -84,7 +84,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Fluctuating_30()
+        public void RecalculateMinExperience_Fluctuating_30()
         {
             Experience exp = new Experience(30, ExpGroup.Fluctuating);
 
@@ -94,7 +94,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Fluctuating_50()
+        public void RecalculateMinExperience_Fluctuating_50()
         {
             Experience exp = new Experience(50, ExpGroup.Fluctuating);
 
@@ -103,7 +103,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Slow_50()
+        public void RecalculateMinExperience_Slow_50()
         {
             Experience exp = new Experience(50, ExpGroup.Slow);
 
@@ -112,7 +112,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Slow_24()
+        public void RecalculateMinExperience_Slow_24()
         {
             Experience exp = new Experience(24, ExpGroup.Slow);
 
@@ -121,7 +121,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_MediumSlow_50()
+        public void RecalculateMinExperience_MediumSlow_50()
         {
             Experience exp = new Experience(50, ExpGroup.MediumSlow);
 
@@ -130,7 +130,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_MediumSlow_24()
+        public void RecalculateMinExperience_MediumSlow_24()
         {
             Experience exp = new Experience(24, ExpGroup.MediumSlow);
 
@@ -139,7 +139,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_MediumFast_50()
+        public void RecalculateMinExperience_MediumFast_50()
         {
             Experience exp = new Experience(50, ExpGroup.MediumFast);
 
@@ -148,7 +148,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_MediumFast_24()
+        public void RecalculateMinExperience_MediumFast_24()
         {
             Experience exp = new Experience(24, ExpGroup.MediumFast);
 
@@ -157,7 +157,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Fast_50()
+        public void RecalculateMinExperience_Fast_50()
         {
             Experience exp = new Experience(50, ExpGroup.Fast);
 
@@ -166,7 +166,7 @@ namespace PokemonTests.Character.Stats
 
         [TestMethod]
         [TestCategory("Experience")]
-        public void RecalculateMaxExperience_Fast_24()
+        public void RecalculateMinExperience_Fast_24()
         {
             Experience exp = new Experience(24, ExpGroup.Fast);
 

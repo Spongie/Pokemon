@@ -1,16 +1,18 @@
 ﻿namespace PokemonGame.Assets.Scripts.Battle
 {
-    public enum BattleAction
+    public class BattleAction
     {
-        Attack1,
-        Attack2,
-        Attack3,
-        Attack4,
-        Swap1,
-        Swap2,
-        Swap3,
-        Swap4,
-        Swap5,
-        Swap6
+        public static BattleAction CreateAction(string method, params object[] parameters)
+        {
+            var x = new BattleAction();
+
+            x.MethodName = method;
+            x.Parmeter = parameters;
+
+            return x;
+        }
+
+        public string MethodName { get; set; }
+        public object Parmeter { get; set; }
     }
 }

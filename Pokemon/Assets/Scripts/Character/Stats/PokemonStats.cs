@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 using System.Linq;
+using PokemonGame.Assets.Scripts.Battle.Attacks;
 
 namespace PokemonGame.Assets.Scripts.Character.Stats
 {
@@ -43,9 +44,9 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
             baseStats.Nature = (Natures)Random.Range(0, System.Enum.GetValues(typeof(Natures)).Cast<int>().Max());
         }
 
-        internal BaseStats GetRealStats()
+        internal BaseStats GetRealStats(StatusType currentStatus)
         {
-            return baseStats.GetRealStats(IVs, EVs, Exp.Level);
+            return baseStats.GetRealStats(IVs, EVs, Exp.Level, currentStatus);
         }
 
         private Range GetMinMaxOfStat(PropertyInfo property)

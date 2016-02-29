@@ -1,4 +1,6 @@
-﻿using PokemonGame.Assets.Scripts.Character.Stats;
+﻿using PokemonGame.Assets.Scripts.Battle.Attacks;
+using PokemonGame.Assets.Scripts.Character;
+using PokemonGame.Assets.Scripts.Character.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,11 @@ namespace PokemonGame.Assets.Scripts.Battle
 {
     public class BattleCalculations
     {
+        public static int CalculateDamage(Pokemon attacker, Pokemon defender, Attack attack)
+        {
+            return 30;
+        }
+
         public static float GetEffectivnessModifer(PokemonType attackType, List<PokemonType> defenderTypes)
         {
             switch (attackType)

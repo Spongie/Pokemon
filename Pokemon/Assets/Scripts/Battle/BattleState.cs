@@ -3,6 +3,7 @@
     public enum BattleState
     {
         SelectingAction,
-        ResolvingActions
+        ResolvingActions,
+        EndCombat
     }
 }

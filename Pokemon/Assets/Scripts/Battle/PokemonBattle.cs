@@ -18,115 +18,203 @@ namespace PokemonGame.Assets.Scripts.Battle
         public Pokemon EnemyActivePokemon;
         public BattleState State;
 
-        private Stack<IEnumerator> battleStack;
+        private Stack<BattleAction> battleStack;
         private bool routine_running = false;
         private BattleAI ai;
 
-        void Start()
+        void Awake()
         {
             ai = new BattleAI();
             PlayerActivePokemon = player.GetFirstAlivePokemon();
             EnemyActivePokemon = enemy.GetFirstAlivePokemon();
-            battleStack = new Stack<IEnumerator>();
+            battleStack = new Stack<BattleAction>();
             State = BattleState.SelectingAction;
         }
 
-        public void SelectAction(BattleAction action)
+        public void SelectAction(BattleActionType action)
         {
             if (State == BattleState.SelectingAction)
             {
-                var actions = new List<IEnumerator>();
                 var aiAction = ai.GetBattleAction(this);
 
-                bool playerSwap = WasAttackSelected(action);
-                bool aiSwap = WasAttackSelected(aiAction);
+                bool playerSwap = !WasAttackSelected(action);
+                bool aiSwap = !WasAttackSelected(aiAction);
 
                 if (playerSwap)
                 {
-                    PlayerSwap(action, actions, aiAction, aiSwap);
+                    PlayerSwap(action, aiAction, aiSwap);
                 }
                 else if (aiSwap)
                 {
-                    EnemySwap(action, actions, aiAction, playerSwap);
+                    EnemySwap(action, aiAction, playerSwap);
                 }
                 else
                 {
-                    HandleBothAttacks(action, actions, aiAction);
+                    HandleBothAttacks(action, aiAction);
                 }
 
                 State = BattleState.ResolvingActions;
             }
         }
 
-        private void HandleBothAttacks(BattleAction action, List<IEnumerator> actions, BattleAction aiAction)
+        private void HandleBothAttacks(BattleActionType action, BattleActionType aiAction)
         {
-            bool playerFastest = PlayerActivePokemon.Stats.GetRealStats().Speed > EnemyActivePokemon.Stats.GetRealStats().Speed;
+            bool playerFastest = PlayerActivePokemon.GetStats().Speed > EnemyActivePokemon.GetStats().Speed;
 
             if (playerFastest)
             {
-                actions.Add(Attack(player.Pokemons.IndexOf(PlayerActivePokemon), PlayerActivePokemon.Attacks[(int)action]));
-                actions.Add(Attack(enemy.Pokemons.IndexOf(EnemyActivePokemon), EnemyActivePokemon.Attacks[(int)aiAction]));
+                
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
             }
             else
             {
-                actions.Add(Attack(enemy.Pokemons.IndexOf(EnemyActivePokemon), EnemyActivePokemon.Attacks[(int)aiAction]));
-                actions.Add(Attack(player.Pokemons.IndexOf(PlayerActivePokemon), PlayerActivePokemon.Attacks[(int)action]));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
             }
         }
 
-        private void EnemySwap(BattleAction action, List<IEnumerator> actions, BattleAction aiAction, bool playerSwap)
+        private void EnemySwap(BattleActionType action, BattleActionType aiAction, bool playerSwap)
         {
             if (!playerSwap)
-                actions.Add(Attack(player.Pokemons.IndexOf(PlayerActivePokemon), PlayerActivePokemon.Attacks[(int)action]));
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
             else
-                actions.Add(Swap(player, GetSwapIndex(action)));
+                battleStack.Push(BattleAction.CreateAction("Swap", player, GetSwapIndex(action)));
 
-            actions.Add(Swap(enemy, GetSwapIndex(aiAction)));
+            battleStack.Push(BattleAction.CreateAction("Swap", enemy, GetSwapIndex(aiAction)));
         }
 
-        private void PlayerSwap(BattleAction action, List<IEnumerator> actions, BattleAction aiAction, bool aiSwap)
+        private void PlayerSwap(BattleActionType action, BattleActionType aiAction, bool aiSwap)
         {
             if (!aiSwap)
-                actions.Add(Attack(enemy.Pokemons.IndexOf(EnemyActivePokemon), EnemyActivePokemon.Attacks[(int)aiAction]));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
             else
-                actions.Add(Swap(enemy, GetSwapIndex(aiAction)));
+                battleStack.Push(BattleAction.CreateAction("Swap", enemy, GetSwapIndex(aiAction)));
 
-            actions.Add(Swap(player, GetSwapIndex(action)));
+            battleStack.Push(BattleAction.CreateAction("Swap", player, GetSwapIndex(action)));
         }
 
-        private static int GetSwapIndex(BattleAction aiAction)
+        private static int GetSwapIndex(BattleActionType aiAction)
         {
             return (int)aiAction - 4;
         }
 
-        private static bool WasAttackSelected(BattleAction action)
+        private static bool WasAttackSelected(BattleActionType action)
         {
-            return action == BattleAction.Attack1 || action == BattleAction.Attack2 || action == BattleAction.Attack3 || action == BattleAction.Attack4;
+            return action == BattleActionType.Attack1 || action == BattleActionType.Attack2 || action == BattleActionType.Attack3 || action == BattleActionType.Attack4;
         }
 
         void Update()
         {
+            if (State == BattleState.SelectingAction)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    SelectAction(BattleActionType.Attack1);   
+                }
+            }
             if (State == BattleState.ResolvingActions && !routine_running)
             {
-                var action = battleStack.Pop();
-                StartCoroutine(action);
-                routine_running = true;
+                if (!battleStack.Any())
+                {
+                    State = BattleState.EndCombat;
+                }
+                else
+                {
+                    BattleAction action = battleStack.Pop();
+                    routine_running = true;
+                    StartCoroutine(action.MethodName, action.Parmeter);
+                }
+            }
+            else if (State == BattleState.EndCombat && !routine_running)
+            {
+                if (!battleStack.Any())
+                {
+                    State = BattleState.SelectingAction;
+                }
+                else
+                {
+
+                }
             }
         }
 
-        private IEnumerator Attack(int attackerIndex, Attack attack)
+        private IEnumerator Attack(object[] param)
         {
-            return null;
+            Pokemon attacker = (Pokemon)param[0];
+            Attack attack = (Attack)param[1];
+            Pokemon target = attacker == PlayerActivePokemon ? EnemyActivePokemon : PlayerActivePokemon;
+
+            int damage = BattleCalculations.CalculateDamage(attacker, target, attack);
+
+            battleStack.Push(BattleAction.CreateAction("DealDamage", target, damage, attack));
+
+            routine_running = false;
+
+            yield return null;
         }
 
-        private IEnumerator Swap(Party owner, int newIndex)
+        private static float GetDamageTime(int damage)
         {
-            return null;
+            float damageTime = 1000f;
+
+            if (damage < 20)
+                damageTime = 200;
+            else if (damage < 60)
+                damageTime = 500;
+
+            return damageTime;
         }
 
-        private IEnumerator DealDamage(Pokemon target, int amount)
+        private IEnumerator Swap(object[] param)
         {
-            return null;
+            Party owner = (Party)param[0];
+            int newIndex = (int)param[1];
+
+            if (owner == player)
+            {
+                PlayerActivePokemon = owner.Pokemons[newIndex];
+            }
+            else
+            {
+                EnemyActivePokemon = owner.Pokemons[newIndex];
+            }
+
+            routine_running = false;
+
+            yield return null;
+        }
+
+        private IEnumerator DealDamage(object[] param)
+        {
+            Pokemon target = (Pokemon)param[0];
+            int damage = (int)param[1];
+            Attack attack = (Attack)param[2];        
+
+            float msPerDamage = GetDamageTime(damage) / damage;
+
+            while (damage >= 0 && target.IsAlive())
+            {   
+                target.Stats.CurrentHealth--;
+                damage--;
+                yield return new WaitForSeconds(msPerDamage / 1000);
+            }
+
+            if (!target.IsAlive())
+            {
+                battleStack.Clear();
+                if (target == EnemyActivePokemon)
+                {
+                    battleStack.Push(BattleAction.CreateAction("Swap", enemy, enemy.GetFirstAlivePokemon()));
+                    //TODO: Reward EXP for playerPokemon?
+                }
+            }
+            else
+            {
+                attack.ApplyEffect(target);
+            }
+
+            routine_running = false;
         }
     }
 }

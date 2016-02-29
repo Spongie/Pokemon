@@ -7,9 +7,9 @@ namespace PokemonGame.Assets.Scripts.Battle
 {
     public class BattleAI
     {
-        public BattleAction GetBattleAction(PokemonBattle battle)
+        public BattleActionType GetBattleAction(PokemonBattle battle)
         {
-            return BattleAction.Attack1;
+            return BattleActionType.Attack1;
         }
     }
 }

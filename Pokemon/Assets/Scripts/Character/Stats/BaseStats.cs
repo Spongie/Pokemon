@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokemonGame.Assets.Scripts.Battle.Attacks;
+using System;
 
 namespace PokemonGame.Assets.Scripts.Character.Stats
 {
@@ -13,7 +14,7 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
         public int Speed;
         public Natures Nature;
 
-        public BaseStats GetRealStats(IVStats hiddenStats, EVStats trainedStats, int level)
+        public BaseStats GetRealStats(IVStats hiddenStats, EVStats trainedStats, int level, StatusType currentStatus)
         {
             var stats = new BaseStats();
 
@@ -24,6 +25,15 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
             stats.Defense = (int)(((Attack * 2 + hiddenStats.Defense + (trainedStats.Defense / 4)) * level / 100 + 5) * GetDefenseModifiers());
             stats.Speed = (int)(((Attack * 2 + hiddenStats.Speed + (trainedStats.Speed / 4)) * level / 100 + 5) * GetSpeedModifiers());
             stats.Nature = Nature;
+
+            if (currentStatus == StatusType.Paralyze)
+            {
+                stats.Speed = (int)(stats.Speed * 0.75f);
+            }
+            else if (currentStatus == StatusType.Burn)
+            {
+                stats.Attack = (int)(stats.Attack * 0.75f);
+            }
 
             return stats;
         }       
