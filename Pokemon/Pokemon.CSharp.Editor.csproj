@@ -89,6 +89,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Pokemon.CSharp.Plugins.csproj">
+      <Project>{741E6A7F-813A-6D5A-9719-B4CD6F8A3578}</Project>
+      <Name>Pokemon.CSharp.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Pokemon.CSharp.csproj">
       <Project>{2F1526DD-BC66-CA2D-9F0D-A9CF28249D2B}</Project>
       <Name>Pokemon.CSharp</Name>
@@ -96,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

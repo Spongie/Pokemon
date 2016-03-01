@@ -32,7 +32,8 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         public int Power;
         public string Description;
         public PokemonType type;
+        public List<AttackCost> Cost;
 
-        public abstract void ApplyEffect(Pokemon target);
+        public abstract void ApplyEffect(Pokemon target, Pokemon attacker);
     }
 }

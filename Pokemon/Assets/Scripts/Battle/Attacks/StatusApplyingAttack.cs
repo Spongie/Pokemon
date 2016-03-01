@@ -7,7 +7,7 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         public StatusType StatusToApply;
         public int ChanceToApply;
 
-        public override void ApplyEffect(Pokemon target)
+        public override void ApplyEffect(Pokemon target, Pokemon attacker)
         {
             if (target.CurrentStatus == StatusType.None)
             {

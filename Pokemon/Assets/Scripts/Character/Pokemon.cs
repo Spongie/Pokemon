@@ -3,6 +3,7 @@ using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character.Stats;
 using PokemonGame.Assets.Scripts.Utility;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -19,6 +20,7 @@ namespace PokemonGame.Assets.Scripts.Character
         public Attack[] Attacks;
         public StatusType CurrentStatus;
         public int TurnsWithCurrentStatus;
+        public List<AttackCost> Resources;
 
         public Pokemon()
         {
@@ -27,6 +29,7 @@ namespace PokemonGame.Assets.Scripts.Character
             Info = new PokemonInfo();
             Stats = new PokemonStats();
             CurrentStatus = StatusType.None;
+            Resources = new List<AttackCost>();
         }
 
         public Pokemon Copy()
@@ -66,6 +69,18 @@ namespace PokemonGame.Assets.Scripts.Character
         {
             CurrentStatus = status;
             TurnsWithCurrentStatus = 0;
+        }
+
+        internal void DrainResources(List<AttackCost> attackCost)
+        {
+            foreach (AttackCost cost in attackCost)
+            {
+                AttackCost resource = Resources.First(c => c.CostType == cost.CostType);
+                resource.Amount -= cost.Amount;
+
+                if (resource.Amount == 0)
+                    Resources.Remove(resource);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
 {
     public class BasicAttack : Attack
     {
-        public override void ApplyEffect(Pokemon target)
+        public override void ApplyEffect(Pokemon target, Pokemon attacker)
         {
 
         }

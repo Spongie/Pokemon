@@ -246,6 +246,8 @@ namespace PokemonGame.Assets.Scripts.Battle
 
             int damage = BattleCalculations.CalculateDamage(attacker, target, attack);
 
+            attacker.DrainResources(attack.Cost);
+
             battleStack.Push(BattleAction.CreateAction("DealDamage", target, damage, attack));
 
             routine_running = false;
@@ -290,14 +292,15 @@ namespace PokemonGame.Assets.Scripts.Battle
             int damage = (int)param[1];
             Attack attack = (Attack)param[2];
             StatusType damageFromStatus = StatusType.None;
+            Pokemon attacker = GetAttacker(target);
 
             if (param.Length == 4)
-                damageFromStatus = (StatusType)param[3];    
+                damageFromStatus = (StatusType)param[3];
 
             float msPerDamage = GetDamageTime(damage) / damage;
 
             while (damage >= 0 && target.IsAlive())
-            {   
+            {
                 target.Stats.CurrentHealth--;
                 damage--;
                 yield return new WaitForSeconds(msPerDamage / 1000);
@@ -307,7 +310,7 @@ namespace PokemonGame.Assets.Scripts.Battle
             {
                 if (target.IsAlive())
                 {
-                    attack.ApplyEffect(target);
+                    attack.ApplyEffect(target, attacker);
                 }
             }
 
@@ -321,6 +324,11 @@ namespace PokemonGame.Assets.Scripts.Battle
             }
 
             routine_running = false;
+        }
+
+        private Pokemon GetAttacker(Pokemon target)
+        {
+            return target == PlayerActivePokemon ? EnemyActivePokemon : PlayerActivePokemon;
         }
     }
 }
