@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using PokemonGame.Assets.Scripts.Character;
 
 namespace PokemonGame.Assets.Scripts.Battle.Attacks
