@@ -6,6 +6,7 @@
         ResolvingActions,
         EndCombat,
         PostCombat,
-        PlayerSelectSwap
+        PlayerSelectSwap,
+        ResolvingEndOfCombat
     }
 }

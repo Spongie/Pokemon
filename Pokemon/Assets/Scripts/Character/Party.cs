@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PokemonGame.Assets.Scripts.Character
 {
+    [Serializable]
     public class Party
     {
         public List<Pokemon> Pokemons;

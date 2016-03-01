@@ -4,6 +4,8 @@ using PokemonGame.Assets.Scripts.Character.Stats;
 using PokemonGame.Assets.Scripts.Utility;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Character
@@ -27,9 +29,22 @@ namespace PokemonGame.Assets.Scripts.Character
             CurrentStatus = StatusType.None;
         }
 
+        public Pokemon Copy()
+        {
+            using (MemoryStream buffer = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(buffer, this);
+                buffer.Position = 0;
+                Pokemon copy = (Pokemon)formatter.Deserialize(buffer);
+                return copy;
+            }
+        }
+
         public void FullyRestore()
         {
             Stats.CurrentHealth = Stats.GetRealStats(CurrentStatus).Health;
+            CurrentStatus = StatusType.None;
         }
 
         public bool IsAlive()

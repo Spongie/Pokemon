@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 480598}
   - 114: {fileID: 11494724}
   m_Layer: 0
-  m_Name: TestPokemon 1
+  m_Name: TestPokemon 2
   m_TagString: Pokemon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PokemonEntity:
     Info:
-      ID: 1
-      Name: Test 2
+      ID: 0
+      Name: Test
     Stats:
       IVs:
         Health: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
         SpDefense: 0
         Speed: 0
       baseStats:
-        Health: 222
+        Health: 100
         Attack: 100
         Defense: 100
         SpAttack: 100
@@ -105,11 +105,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: PokemonEntity.Info.Name
-      value: Test 2
+      value: Test
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: PokemonEntity.Stats.baseStats.Health
-      value: 222
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: PokemonEntity.Stats.baseStats.Attack
@@ -138,11 +138,7 @@ Prefab:
         type: 2}
     - target: {fileID: 0}
       propertyPath: m_Name
-      value: TestPokemon 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: PokemonEntity.Info.ID
-      value: 1
+      value: TestPokemon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

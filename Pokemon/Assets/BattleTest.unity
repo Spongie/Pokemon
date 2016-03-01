@@ -390,6 +390,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7a8ddef99d661468ef193ee9306675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player:
+    Pokemons: []
+  enemy:
+    Pokemons: []
   PlayerActivePokemon:
     Info:
       ID: 0
@@ -429,6 +433,8 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    CurrentStatus: 6
+    TurnsWithCurrentStatus: 0
   EnemyActivePokemon:
     Info:
       ID: 0
@@ -468,7 +474,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    CurrentStatus: 6
+    TurnsWithCurrentStatus: 0
   State: 0
+  IsBattleComplete: 0
 --- !u!4 &663196979
 Transform:
   m_ObjectHideFlags: 0

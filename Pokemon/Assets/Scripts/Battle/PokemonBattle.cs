@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Battle
 {
+    public delegate void BattleFinished(bool victory);
+
     public class PokemonBattle : MonoBehaviour
     {
         public Party player;
@@ -17,6 +19,9 @@ namespace PokemonGame.Assets.Scripts.Battle
         public Pokemon PlayerActivePokemon;
         public Pokemon EnemyActivePokemon;
         public BattleState State;
+
+        public bool IsBattleComplete;
+        public event BattleFinished OnBattleFinished;
 
         private Stack<BattleAction> battleStack;
         private bool routine_running = false;
@@ -170,7 +175,36 @@ namespace PokemonGame.Assets.Scripts.Battle
             }
             else if (State == BattleState.ResolvingEndOfCombat)
             {
-                
+                if (battleStack.Any())
+                {
+                    BattleAction action = battleStack.Pop();
+                    routine_running = true;
+                    StartCoroutine(action.MethodName, action.Parmeter);
+                }
+                else
+                {
+                    if (player.IsAllPokemonDead())
+                    {
+                        if (OnBattleFinished != null)
+                            OnBattleFinished(false);
+
+                        IsBattleComplete = true;
+                    }
+                    else if (enemy.IsAllPokemonDead())
+                    {
+                        if (OnBattleFinished != null)
+                            OnBattleFinished(true);
+
+                        IsBattleComplete = true;
+                    }
+                    else
+                    {
+                        if (!playerPokemonDied)
+                            PlayerActivePokemon.TurnsWithCurrentStatus++;
+                        if (!enemyPokemonDied)
+                            EnemyActivePokemon.TurnsWithCurrentStatus++;
+                    }
+                }
             }
         }
 
@@ -271,14 +305,18 @@ namespace PokemonGame.Assets.Scripts.Battle
 
             if (damageFromStatus != StatusType.None)
             {
-                if (!target.IsAlive())
-                {
-                    battleStack.Clear();
-                    //Reward EXP!
-                }
-                else
+                if (target.IsAlive())
                 {
                     attack.ApplyEffect(target);
+                }
+            }
+
+            if (!target.IsAlive())
+            {
+                battleStack.Clear();
+                if (target == EnemyActivePokemon)
+                {
+                    //reward xp to playerpokemon
                 }
             }
 
