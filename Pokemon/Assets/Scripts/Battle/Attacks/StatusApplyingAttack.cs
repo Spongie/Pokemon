@@ -1,7 +1,9 @@
 ﻿using PokemonGame.Assets.Scripts.Character;
+using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Battle.Attacks
 {
+    [CreateAssetMenu(menuName = "Attacks/Status Attack")]
     public class StatusApplyingAttack : Attack
     {
         public StatusType StatusToApply;

@@ -22,7 +22,7 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         None
     }
 
-    public abstract class Attack : MonoBehaviour
+    public abstract class Attack : ScriptableObject
     {
         public string Name;
         public AttackType attackType;

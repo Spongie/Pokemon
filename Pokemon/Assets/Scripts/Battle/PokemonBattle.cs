@@ -1,4 +1,5 @@
-﻿using PokemonGame.Assets.Scripts.Battle.Attacks;
+﻿using PokemonGame.Assets.Scripts.Battle.AI;
+using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character;
 using System;
 using System.Collections;
@@ -74,7 +75,7 @@ namespace PokemonGame.Assets.Scripts.Battle
 
         private void HandleBothAttacks(BattleActionType action, BattleActionType aiAction)
         {
-            bool playerFastest = PlayerActivePokemon.GetStats().Speed > EnemyActivePokemon.GetStats().Speed;
+            bool playerFastest = IsPlayerPokemonFaster();
 
             if (playerFastest)
             {
@@ -86,6 +87,11 @@ namespace PokemonGame.Assets.Scripts.Battle
                 battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
                 battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
             }
+        }
+
+        private bool IsPlayerPokemonFaster()
+        {
+            return PlayerActivePokemon.GetStats().Speed > EnemyActivePokemon.GetStats().Speed;
         }
 
         private void EnemySwap(BattleActionType action, BattleActionType aiAction, bool playerSwap)
@@ -127,11 +133,11 @@ namespace PokemonGame.Assets.Scripts.Battle
                     SelectAction(BattleActionType.Attack1);   
                 }
             }
-            if (State == BattleState.ResolvingActions && !routine_running)
+            else if (State == BattleState.ResolvingActions && !routine_running)
             {
                 if (!battleStack.Any())
                 {
-                    State = BattleState.EndCombat;
+                    State = BattleState.PostCombat;
                 }
                 else
                 {
@@ -203,6 +209,9 @@ namespace PokemonGame.Assets.Scripts.Battle
                             PlayerActivePokemon.TurnsWithCurrentStatus++;
                         if (!enemyPokemonDied)
                             EnemyActivePokemon.TurnsWithCurrentStatus++;
+
+                        playerPokemonDied = false;
+                        enemyPokemonDied = false;
                     }
                 }
             }

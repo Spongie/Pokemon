@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using PokemonGame.Assets.Scripts.Character;
+using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Battle.Attacks
 {
+    [CreateAssetMenu(menuName = "Attacks/Resource Generating Attack")]
     public class ResourceGeneratingAttack : Attack
     {
         public override void ApplyEffect(Pokemon target, Pokemon attacker)

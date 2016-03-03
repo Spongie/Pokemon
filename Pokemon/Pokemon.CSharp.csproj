@@ -63,18 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Pokemon.CSharp.Plugins.csproj">
-      <Project>{741E6A7F-813A-6D5A-9719-B4CD6F8A3578}</Project>
-      <Name>Pokemon.CSharp.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Assets\Scripts\Battle\AI\IBattleAI.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\Attack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\AttackCost.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\BasicAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\ResourceGeneratingAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\StatusApplyingAttack.cs" />
-    <Compile Include="Assets\Scripts\Battle\BattleAI.cs" />
+    <Compile Include="Assets\Scripts\Battle\AI\BattleAI.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleAction.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleActionType.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleCalculations.cs" />
