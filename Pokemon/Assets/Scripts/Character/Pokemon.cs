@@ -18,6 +18,12 @@ namespace PokemonGame.Assets.Scripts.Character
         public PokemonStats Stats;
         public List<PokemonType> Types;
         public Attack[] Attacks;
+
+        internal void SetLevel(int level)
+        {
+            Stats.Exp = new Experience(level, Stats.Exp.Group);
+        }
+
         public StatusType CurrentStatus;
         public int TurnsWithCurrentStatus;
         public List<AttackCost> Resources;
