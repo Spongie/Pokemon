@@ -5,10 +5,15 @@ using UnityEngine;
 
 namespace PokemonGame.Assets.Scripts.Utility
 {
+    [CreateAssetMenu(menuName = "SpawnGroup")]
     public class SpawnGroup : ScriptableObject
     {
+        [Range(2, 100)]
         public int MinLevel;
+
+        [Range(2, 100)]
         public int MaxLevel;
+
         public List<GameObject> Pokemons;
 
         public Pokemon GetRandomPokemon()
@@ -18,6 +23,13 @@ namespace PokemonGame.Assets.Scripts.Utility
             pokemon.SetLevel(Random.Range(MinLevel, MaxLevel));
 
             return pokemon;
+        }
+
+        [ExecuteInEditMode]
+        void OnValidate()
+        {
+            if (MaxLevel < MinLevel)
+                MaxLevel = MinLevel;
         }
     }
 }

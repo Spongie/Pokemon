@@ -19,7 +19,7 @@ namespace PokemonGame.Assets.Scripts.Character
         public List<PokemonType> Types;
         public Attack[] Attacks;
 
-        internal void SetLevel(int level)
+        public void SetLevel(int level)
         {
             Stats.Exp = new Experience(level, Stats.Exp.Group);
         }
@@ -27,6 +27,8 @@ namespace PokemonGame.Assets.Scripts.Character
         public StatusType CurrentStatus;
         public int TurnsWithCurrentStatus;
         public List<AttackCost> Resources;
+
+        public int Level { get { return Stats.Exp.Level; } }
 
         public Pokemon()
         {
@@ -54,6 +56,7 @@ namespace PokemonGame.Assets.Scripts.Character
         {
             Stats.CurrentHealth = Stats.GetRealStats(CurrentStatus).Health;
             CurrentStatus = StatusType.None;
+            TurnsWithCurrentStatus = 0;
         }
 
         public bool IsAlive()
@@ -77,7 +80,7 @@ namespace PokemonGame.Assets.Scripts.Character
             TurnsWithCurrentStatus = 0;
         }
 
-        internal void DrainResources(List<AttackCost> attackCost)
+        public void DrainResources(List<AttackCost> attackCost)
         {
             foreach (AttackCost cost in attackCost)
             {

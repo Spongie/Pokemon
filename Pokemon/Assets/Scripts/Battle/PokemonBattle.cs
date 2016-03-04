@@ -1,6 +1,7 @@
 ﻿using PokemonGame.Assets.Scripts.Battle.AI;
 using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character;
+using PokemonGame.Assets.Scripts.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -253,7 +254,7 @@ namespace PokemonGame.Assets.Scripts.Battle
             Attack attack = (Attack)param[1];
             Pokemon target = attacker == PlayerActivePokemon ? EnemyActivePokemon : PlayerActivePokemon;
 
-            int damage = BattleCalculations.CalculateDamage(attacker, target, attack);
+            Damage damage = BattleCalculations.CalculateDamage(attacker, target, attack);
 
             attacker.DrainResources(attack.Cost);
 
@@ -298,7 +299,7 @@ namespace PokemonGame.Assets.Scripts.Battle
         private IEnumerator DealDamage(object[] param)
         {
             Pokemon target = (Pokemon)param[0];
-            int damage = (int)param[1];
+            Damage damage = (Damage)param[1];
             Attack attack = (Attack)param[2];
             StatusType damageFromStatus = StatusType.None;
             Pokemon attacker = GetAttacker(target);
@@ -306,12 +307,12 @@ namespace PokemonGame.Assets.Scripts.Battle
             if (param.Length == 4)
                 damageFromStatus = (StatusType)param[3];
 
-            float msPerDamage = GetDamageTime(damage) / damage;
+            float msPerDamage = GetDamageTime(damage.Amount) / damage.Amount;
 
-            while (damage >= 0 && target.IsAlive())
+            while (damage.Amount >= 0 && target.IsAlive())
             {
                 target.Stats.CurrentHealth--;
-                damage--;
+                damage.Amount--;
                 yield return new WaitForSeconds(msPerDamage / 1000);
             }
 

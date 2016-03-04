@@ -20,10 +20,10 @@ namespace PokemonGame.Assets.Scripts.Character.Stats
 
             stats.Health = ((Health * 2 + hiddenStats.Health + (trainedStats.Health / 4)) * level / 100 + 10 + level);
             stats.Attack = (int)(((Attack * 2 + hiddenStats.Attack + (trainedStats.Attack / 4)) * level / 100 + 5) * GetAttackModifier());
-            stats.SpAttack = (int)(((Attack * 2 + hiddenStats.SpAttack + (trainedStats.SpAttack / 4)) * level / 100 + 5) * GetSpAttackModifiers());
-            stats.SpDefense = (int)(((Attack * 2 + hiddenStats.SpDefense + (trainedStats.SpDefense / 4)) * level / 100 + 5) * GetSpDefenseModifiers());
-            stats.Defense = (int)(((Attack * 2 + hiddenStats.Defense + (trainedStats.Defense / 4)) * level / 100 + 5) * GetDefenseModifiers());
-            stats.Speed = (int)(((Attack * 2 + hiddenStats.Speed + (trainedStats.Speed / 4)) * level / 100 + 5) * GetSpeedModifiers());
+            stats.SpAttack = (int)(((SpAttack * 2 + hiddenStats.SpAttack + (trainedStats.SpAttack / 4)) * level / 100 + 5) * GetSpAttackModifiers());
+            stats.SpDefense = (int)(((SpDefense * 2 + hiddenStats.SpDefense + (trainedStats.SpDefense / 4)) * level / 100 + 5) * GetSpDefenseModifiers());
+            stats.Defense = (int)(((Defense * 2 + hiddenStats.Defense + (trainedStats.Defense / 4)) * level / 100 + 5) * GetDefenseModifiers());
+            stats.Speed = (int)(((Speed * 2 + hiddenStats.Speed + (trainedStats.Speed / 4)) * level / 100 + 5) * GetSpeedModifiers());
             stats.Nature = Nature;
 
             if (currentStatus == StatusType.Paralyze)

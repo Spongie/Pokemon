@@ -1,6 +1,7 @@
 ﻿using PokemonGame.Assets.Scripts.Battle.Attacks;
 using PokemonGame.Assets.Scripts.Character;
 using PokemonGame.Assets.Scripts.Character.Stats;
+using PokemonGame.Assets.Scripts.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,31 @@ namespace PokemonGame.Assets.Scripts.Battle
 {
     public class BattleCalculations
     {
-        public static int CalculateDamage(Pokemon attacker, Pokemon defender, Attack attack)
+        public static Damage CalculateDamage(Pokemon attacker, Pokemon defender, Attack attack)
         {
-            return 30;
+            bool crit;
+            float attackStat = attacker.GetStats().Attack;
+            float defenseStat = defender.GetStats().Defense;
+
+            int damage = (int)((((2 * attacker.Level + 10) / 250f) * (attackStat / defenseStat) * attack.Power + 2) * GetDamageModifier(attacker, defender, attack, out crit));
+
+            return new Damage()
+            {
+                Amount = damage,
+                Critical = crit,
+                Effectiveness = GetEffectivnessModifer(attack.type, defender.Types)
+            };
+        }
+
+        private static float GetDamageModifier(Pokemon attacker, Pokemon defender, Attack attack, out bool crit)
+        {
+            float stab = attacker.Types.Contains(attack.type) ? 1.5f : 1;
+            float effectiveness = GetEffectivnessModifer(attack.type, defender.Types);
+            float critical = UnityEngine.Random.Range(0, 100) < attack.CritChance ? 1.5f : 1;
+            crit = critical > 1.1f;
+            float randomDamageModifer = UnityEngine.Random.Range(0.85f, 1f);
+
+            return stab * effectiveness * critical * randomDamageModifer;
         }
 
         public static int CalculateStatusDamage(Pokemon pokemon)

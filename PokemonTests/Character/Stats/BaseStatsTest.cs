@@ -89,6 +89,24 @@ namespace PokemonTests.Character.Stats
             Assert.AreEqual(48, realStats.Attack);
         }
 
+        [TestMethod]
+        [TestCategory("Stats")]
+        public void GetRealStats_AttackReducedByBurn()
+        {
+            var stats = GetPokemon();
+
+            Assert.AreEqual(stats.GetRealStats(new IVStats(), new EVStats(), 50, StatusType.Burn).Attack, 40);
+        }
+
+        [TestMethod]
+        [TestCategory("Stats")]
+        public void GetRealStats_SpeedReducedByParalyze()
+        {
+            var stats = GetPokemon();
+
+            Assert.AreEqual(stats.GetRealStats(new IVStats(), new EVStats(), 50, StatusType.Paralyze).Speed, 37);
+        }
+
         private static BaseStats GetPokemon()
         {
             //Really is a bulbasaur

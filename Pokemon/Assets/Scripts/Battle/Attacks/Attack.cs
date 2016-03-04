@@ -30,6 +30,7 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         public string Description;
         public PokemonType type;
         public List<AttackCost> Cost;
+        public int CritChance;
 
         public abstract void ApplyEffect(Pokemon target, Pokemon attacker);
     }
