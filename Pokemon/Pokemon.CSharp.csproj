@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Battle\BattleActionType.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleCalculations.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleState.cs" />
+    <Compile Include="Assets\Scripts\Battle\BattleWorldController.cs" />
     <Compile Include="Assets\Scripts\Battle\PokemonBattle.cs" />
     <Compile Include="Assets\Scripts\BattleTester.cs" />
     <Compile Include="Assets\Scripts\Character\Party.cs" />

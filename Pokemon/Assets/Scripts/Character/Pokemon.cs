@@ -17,6 +17,7 @@ namespace PokemonGame.Assets.Scripts.Character
         public PokemonInfo Info;
         public PokemonStats Stats;
         public List<PokemonType> Types;
+
         public Attack[] Attacks;
 
         public void SetLevel(int level)
@@ -42,12 +43,17 @@ namespace PokemonGame.Assets.Scripts.Character
 
         public Pokemon Copy()
         {
+            var tmpAttacks = Attacks;
+            Attacks = null;
+
             using (MemoryStream buffer = new MemoryStream())
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(buffer, this);
                 buffer.Position = 0;
                 Pokemon copy = (Pokemon)formatter.Deserialize(buffer);
+                copy.Attacks = tmpAttacks;
+                Attacks = tmpAttacks;
                 return copy;
             }
         }
@@ -84,11 +90,15 @@ namespace PokemonGame.Assets.Scripts.Character
         {
             foreach (AttackCost cost in attackCost)
             {
-                AttackCost resource = Resources.First(c => c.CostType == cost.CostType);
-                resource.Amount -= cost.Amount;
+                AttackCost resource = Resources.FirstOrDefault(c => c.CostType == cost.CostType);
 
-                if (resource.Amount == 0)
-                    Resources.Remove(resource);
+                if (resource != null)
+                {
+                    resource.Amount -= cost.Amount;
+
+                    if (resource.Amount == 0)
+                        Resources.Remove(resource);
+                }
             }
         }
     }

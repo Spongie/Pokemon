@@ -25,9 +25,12 @@ namespace PokemonGame.Assets.Scripts.Battle
         public bool IsBattleComplete;
         public event BattleFinished OnBattleFinished;
 
+        public event EventHandler PlayerPokemonChanged;
+        public event EventHandler EnemyPokemonChanged;
+
         private Stack<BattleAction> battleStack;
         private bool routine_running = false;
-        private BattleAI ai;
+        private IBattleAI ai;
 
         private bool playerPokemonDied;
         private bool enemyPokemonDied;
@@ -39,21 +42,24 @@ namespace PokemonGame.Assets.Scripts.Battle
             EnemyActivePokemon = enemy.GetFirstAlivePokemon();
             battleStack = new Stack<BattleAction>();
             State = BattleState.SelectingAction;
+
+            PlayerPokemonChanged(this, new EventArgs());
+            EnemyPokemonChanged(this, new EventArgs());
         }
 
         public void SelectAction(BattleActionType action)
         {
-            var aiAction = ai.GetBattleAction(this);
-
-            bool playerSwap = !WasAttackSelected(action);
-            bool aiSwap = !WasAttackSelected(aiAction);
-
             if (State == BattleState.PlayerSelectSwap)
             {
                 battleStack.Push(BattleAction.CreateAction("Swap", player, GetSwapIndex(action)));
                 State = BattleState.ResolvingEndOfCombat;
                 return;
             }
+
+            var aiAction = ai.GetBattleAction(this);
+
+            bool playerSwap = !WasAttackSelected(action);
+            bool aiSwap = !WasAttackSelected(aiAction);
 
             playerPokemonDied = false;
             enemyPokemonDied = false;
@@ -134,6 +140,10 @@ namespace PokemonGame.Assets.Scripts.Battle
                     SelectAction(BattleActionType.Attack1);   
                 }
             }
+            else if (State == BattleState.PlayerSelectSwap)
+            {
+                SelectAction(BattleActionType.Swap1);
+            }
             else if (State == BattleState.ResolvingActions && !routine_running)
             {
                 if (!battleStack.Any())
@@ -164,12 +174,12 @@ namespace PokemonGame.Assets.Scripts.Battle
                 }
                 else
                 {
-                    if (!PlayerActivePokemon.IsAlive())
+                    if (!PlayerActivePokemon.IsAlive() && !player.IsAllPokemonDead())
                     {
                         State = BattleState.PlayerSelectSwap;
                         playerPokemonDied = true;
                     }
-                    if (!EnemyActivePokemon.IsAlive())
+                    if (!EnemyActivePokemon.IsAlive() && !enemy.IsAllPokemonDead())
                     {
                         enemyPokemonDied = true;
                         var aiAction = ai.GetSwapWhenDeadPokemon(this);
@@ -213,6 +223,8 @@ namespace PokemonGame.Assets.Scripts.Battle
 
                         playerPokemonDied = false;
                         enemyPokemonDied = false;
+
+                        State = BattleState.SelectingAction;
                     }
                 }
             }

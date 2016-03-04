@@ -1,5 +1,6 @@
 ﻿using PokemonGame.Assets.Scripts.Character;
 using PokemonGame.Assets.Scripts.Character.Stats;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
         None
     }
 
+    [Serializable]
     public abstract class Attack : ScriptableObject
     {
         public string Name;
