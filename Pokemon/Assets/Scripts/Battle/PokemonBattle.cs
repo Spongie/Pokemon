@@ -86,13 +86,13 @@ namespace PokemonGame.Assets.Scripts.Battle
 
             if (playerFastest)
             {
-                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
-                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction].attack));
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action].attack));
             }
             else
             {
-                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
-                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action].attack));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction].attack));
             }
         }
 
@@ -104,7 +104,7 @@ namespace PokemonGame.Assets.Scripts.Battle
         private void EnemySwap(BattleActionType action, BattleActionType aiAction, bool playerSwap)
         {
             if (!playerSwap)
-                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action]));
+                battleStack.Push(BattleAction.CreateAction("Attack", PlayerActivePokemon, PlayerActivePokemon.Attacks[(int)action].attack));
             else
                 battleStack.Push(BattleAction.CreateAction("Swap", player, GetSwapIndex(action)));
 
@@ -114,7 +114,7 @@ namespace PokemonGame.Assets.Scripts.Battle
         private void PlayerSwap(BattleActionType action, BattleActionType aiAction, bool aiSwap)
         {
             if (!aiSwap)
-                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction]));
+                battleStack.Push(BattleAction.CreateAction("Attack", EnemyActivePokemon, EnemyActivePokemon.Attacks[(int)aiAction].attack));
             else
                 battleStack.Push(BattleAction.CreateAction("Swap", enemy, GetSwapIndex(aiAction)));
 

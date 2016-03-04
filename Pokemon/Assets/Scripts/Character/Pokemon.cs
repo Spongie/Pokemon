@@ -18,7 +18,7 @@ namespace PokemonGame.Assets.Scripts.Character
         public PokemonStats Stats;
         public List<PokemonType> Types;
 
-        public Attack[] Attacks;
+        public PokemonAttack[] Attacks;
 
         public void SetLevel(int level)
         {
@@ -33,7 +33,7 @@ namespace PokemonGame.Assets.Scripts.Character
 
         public Pokemon()
         {
-            Attacks = new Attack[4];
+            Attacks = new PokemonAttack[4];
             Types = new List<PokemonType>();
             Info = new PokemonInfo();
             Stats = new PokemonStats();

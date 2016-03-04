@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
 namespace PokemonGame.Assets.Scripts.Battle
@@ -23,6 +24,9 @@ namespace PokemonGame.Assets.Scripts.Battle
         public Camera mainCamera;
         public FirstPersonController PlayerController;
         public Camera BattleCamera;
+
+        public Image PlayerPokemonHealth;
+        public Text PlayerPokemonHealthText;
 
         void Start() 
         {
@@ -60,6 +64,9 @@ namespace PokemonGame.Assets.Scripts.Battle
             {
                 activeEnemy.transform.rotation = Quaternion.LookRotation(activePlayer.transform.position - activeEnemy.transform.position);
                 activePlayer.transform.rotation = Quaternion.LookRotation(activeEnemy.transform.position - activePlayer.transform.position);
+
+                PlayerPokemonHealth.fillAmount = Battle.PlayerActivePokemon.Stats.CurrentHealth / (float)Battle.PlayerActivePokemon.GetStats().Health;
+                PlayerPokemonHealthText.text = Battle.PlayerActivePokemon.Stats.CurrentHealth + "/" + (float)Battle.PlayerActivePokemon.GetStats().Health;
             }
             if (Input.GetKeyDown(KeyCode.K))
             {

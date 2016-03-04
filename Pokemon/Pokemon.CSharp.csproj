@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Battle\Attacks\Attack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\AttackCost.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\BasicAttack.cs" />
+    <Compile Include="Assets\Scripts\Battle\Attacks\PokemonAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\ResourceGeneratingAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\Attacks\StatusApplyingAttack.cs" />
     <Compile Include="Assets\Scripts\Battle\BattleAction.cs" />
