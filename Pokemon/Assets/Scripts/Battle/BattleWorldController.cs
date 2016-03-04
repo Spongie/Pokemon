@@ -35,11 +35,21 @@ namespace PokemonGame.Assets.Scripts.Battle
         private void Battle_PlayerPokemonChanged(object sender, EventArgs e)
         {
             activePlayer = (GameObject)Instantiate(PokemonManager.GetPokemonById(Battle.PlayerActivePokemon.Info.ID), playerSpawn.position, Quaternion.identity);
+
+            foreach (var renderer in activePlayer.GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.enabled = true;
+            }
         }
 
         private void Battle_EnemyPokemonChanged(object sender, EventArgs e)
         {
             activeEnemy = (GameObject)Instantiate(PokemonManager.GetPokemonById(Battle.EnemyActivePokemon.Info.ID), enemySpawn.position, Quaternion.identity);
+
+            foreach (var renderer in activeEnemy.GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.enabled = true;
+            }
         }
 
         void Update()
