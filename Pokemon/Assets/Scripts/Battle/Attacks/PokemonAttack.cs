@@ -7,10 +7,5 @@ namespace PokemonGame.Assets.Scripts.Battle.Attacks
     {
         public Attack attack;
         public int UnlockedAtLevel;
-
-        public static explicit operator Attack(PokemonAttack pokemonAttack)
-        {
-            return pokemonAttack.attack;
-        }
     }
 }
