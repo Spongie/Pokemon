@@ -62,11 +62,9 @@ namespace PokemonGame.Assets.Scripts.Battle
 
             if (activePlayer != null && activeEnemy != null)
             {
-                activeEnemy.transform.rotation = Quaternion.LookRotation(activePlayer.transform.position - activeEnemy.transform.position);
-                activePlayer.transform.rotation = Quaternion.LookRotation(activeEnemy.transform.position - activePlayer.transform.position);
+                SetPokemonRotation();
 
-                PlayerPokemonHealth.fillAmount = Battle.PlayerActivePokemon.Stats.CurrentHealth / (float)Battle.PlayerActivePokemon.GetStats().Health;
-                PlayerPokemonHealthText.text = Battle.PlayerActivePokemon.Stats.CurrentHealth + "/" + (float)Battle.PlayerActivePokemon.GetStats().Health;
+                SetPlayerHealthInfo();
             }
             if (Input.GetKeyDown(KeyCode.K))
             {
@@ -91,6 +89,18 @@ namespace PokemonGame.Assets.Scripts.Battle
 
                 battleObject.SetActive(true);
             }
+        }
+
+        private void SetPlayerHealthInfo()
+        {
+            PlayerPokemonHealth.fillAmount = Battle.PlayerActivePokemon.Stats.CurrentHealth / (float)Battle.PlayerActivePokemon.GetStats().Health;
+            PlayerPokemonHealthText.text = Battle.PlayerActivePokemon.Stats.CurrentHealth + "/" + (float)Battle.PlayerActivePokemon.GetStats().Health;
+        }
+
+        private void SetPokemonRotation()
+        {
+            activeEnemy.transform.rotation = Quaternion.LookRotation(activePlayer.transform.position - activeEnemy.transform.position);
+            activePlayer.transform.rotation = Quaternion.LookRotation(activeEnemy.transform.position - activePlayer.transform.position);
         }
     }
 }
