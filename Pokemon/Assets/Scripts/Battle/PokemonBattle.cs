@@ -266,6 +266,9 @@ namespace PokemonGame.Assets.Scripts.Battle
             Attack attack = (Attack)param[1];
             Pokemon target = attacker == PlayerActivePokemon ? EnemyActivePokemon : PlayerActivePokemon;
 
+            if (attacker.IsParalyzed())
+                yield return null;
+
             Damage damage = BattleCalculations.CalculateDamage(attacker, target, attack);
 
             attacker.DrainResources(attack.Cost);
